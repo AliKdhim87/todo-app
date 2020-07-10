@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from "react";
 
-import { Form, Button, Alert } from 'react-bootstrap';
-import TodoContext from '../context/todo/todoContext';
+import { Form, Button, Alert } from "react-bootstrap";
+import TodoContext from "../context/todo/todoContext";
 const TodoForm = () => {
   const {
     createTodo,
@@ -11,8 +11,11 @@ const TodoForm = () => {
     error,
     clearError,
   } = useContext(TodoContext);
-  const [todo, setTodo] = useState('');
+
+  const [todo, setTodo] = useState("");
+
   const [showAlert, setShowAlert] = useState(false);
+
   const onSubmitTodoHandler = (e) => {
     e.preventDefault();
 
@@ -23,13 +26,13 @@ const TodoForm = () => {
       createTodo({ description: todo, completed: false });
     }
 
-    setTodo('');
+    setTodo("");
   };
   useEffect(() => {
     if (current !== null) {
       setTodo(current.description);
     } else {
-      setTodo('');
+      setTodo("");
     }
     if (error) {
       setShowAlert(true);
@@ -44,7 +47,7 @@ const TodoForm = () => {
             setShowAlert(false);
             clearError();
           }}
-          variant='danger'
+          variant="danger"
           dismissible
         >
           <p>{error}</p>
@@ -54,20 +57,20 @@ const TodoForm = () => {
         <Form.Group>
           <Form.Label>Add Todo</Form.Label>
           <Form.Control
-            placeholder='todo'
+            placeholder="todo"
             value={todo}
             onChange={(e) => setTodo(e.target.value)}
           />
         </Form.Group>
-        <Button className='mb-2' block type='submit' variant='primary'>
-          {current ? 'Update' : 'Add todo'}
+        <Button className="mb-2" block type="submit" variant="primary">
+          {current ? "Update" : "Add todo"}
         </Button>
         {current && (
           <Button
-            className='mb-5'
+            className="mb-5"
             block
-            type='submit'
-            variant='secondary'
+            type="submit"
+            variant="secondary"
             onClick={clearCurrentTodo}
           >
             Cancel

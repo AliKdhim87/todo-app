@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useCallback } from "react";
 import axios from "axios";
 import TodoContext from "./todoContext";
 import TodoReducer from "./todoReducer";
@@ -23,7 +23,7 @@ const TodoState = (props) => {
 
   const [state, dispatch] = useReducer(TodoReducer, initialState);
 
-  const getTodos = async () => {
+  const getTodos = useCallback(async () => {
     try {
       const url = "http://localhost:5000/api/todo";
       const data = await axios.get(url);
@@ -37,10 +37,9 @@ const TodoState = (props) => {
         payload: error.response.data,
       });
     }
-  };
+  }, []);
 
   const createTodo = async (todo) => {
-    console.log(todo);
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -49,6 +48,7 @@ const TodoState = (props) => {
     try {
       const url = "http://localhost:5000/api/todo";
       const data = await axios.post(url, todo, config);
+
       dispatch({
         type: CREATE_TODOS,
         payload: data.data,
@@ -60,6 +60,7 @@ const TodoState = (props) => {
       });
     }
   };
+
   const updateTodo = async (id, todo) => {
     const config = {
       headers: {
@@ -90,7 +91,7 @@ const TodoState = (props) => {
     dispatch({ type: CLEAR_ERROR });
   };
 
-  const deleteTodo = async (id, todo) => {
+  const deleteTodo = async (id) => {
     try {
       const url = `http://localhost:5000/api/todo/${id}`;
       await axios.delete(url);

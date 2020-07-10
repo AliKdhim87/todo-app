@@ -1,25 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Container,
   Jumbotron,
   Card,
   ListGroup,
   Spinner,
-  Alert,
 } from "react-bootstrap";
 import TodoContext from "../context/todo/todoContext";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 
 const Todo = () => {
-  const { todos, loading, error, getTodos, clearError } = useContext(
-    TodoContext
-  );
-  const [showAlert, setShowAlert] = useState(false);
+  const { todos, loading, getTodos } = useContext(TodoContext);
+
   useEffect(() => {
     getTodos();
-    // eslint-disable-next-line
-  }, []);
+  }, [getTodos]);
 
   return (
     <>
@@ -30,18 +26,6 @@ const Todo = () => {
         <TodoForm />
         <Card>
           <ListGroup variant="flush">
-            {showAlert && (
-              <Alert
-                onClose={() => {
-                  setShowAlert(false);
-                  clearError();
-                }}
-                variant="danger"
-                dismissible
-              >
-                <p>{error}</p>
-              </Alert>
-            )}
             {loading && (
               <div className="text-center">
                 <Spinner animation="border" role="status">

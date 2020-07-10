@@ -1,16 +1,13 @@
 const mongoose = require("mongoose");
-
+require("dotenv").config();
 const connectDB = async () => {
   try {
-    mongoose.connect(
-      "mongodb+srv://ali:X4s2QqNyS9oV4mwf@cluster0.1xhs4.mongodb.net/todo?retryWrites=true&w=majority",
-      {
-        useCreateIndex: true,
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        useFindAndModify: false,
-      }
-    );
+    mongoose.connect(process.env.MONGODB_KEY, {
+      useCreateIndex: true,
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+      useFindAndModify: false,
+    });
     console.log("DB connected");
   } catch (error) {
     console.error(error.message);
