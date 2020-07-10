@@ -7,15 +7,11 @@ import {
   CURRENT_TODO,
   CLEAR_CURRENT_TODO,
   CLEAR_ERROR,
-} from '../types';
+} from "../types";
+
 export default (state, action) => {
   const { payload, type } = action;
   switch (type) {
-    case CURRENT_TODO:
-      return {
-        ...state,
-        current: payload,
-      };
     case GET_TODOS:
       return {
         ...state,
@@ -35,6 +31,11 @@ export default (state, action) => {
           todo._id === payload._id ? payload : todo
         ),
         loading: false,
+      };
+    case CURRENT_TODO:
+      return {
+        ...state,
+        current: payload,
       };
     case DELETE_TODOS:
       return {

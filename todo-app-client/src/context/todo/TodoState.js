@@ -1,7 +1,7 @@
-import React, { useReducer } from 'react';
-import axios from 'axios';
-import TodoContext from './todoContext';
-import TodoReducer from './todoReducer';
+import React, { useReducer } from "react";
+import axios from "axios";
+import TodoContext from "./todoContext";
+import TodoReducer from "./todoReducer";
 import {
   GET_TODOS_ERROR,
   GET_TODOS,
@@ -11,19 +11,21 @@ import {
   CURRENT_TODO,
   CLEAR_CURRENT_TODO,
   CLEAR_ERROR,
-} from '../types';
+} from "../types";
 
 const TodoState = (props) => {
   const initialState = {
-    todos: [],
+    todos: null,
     loading: true,
     error: null,
     current: null,
   };
+
   const [state, dispatch] = useReducer(TodoReducer, initialState);
+
   const getTodos = async () => {
     try {
-      const url = 'http://localhost:5000/api/todo';
+      const url = "http://localhost:5000/api/todo";
       const data = await axios.get(url);
       dispatch({
         type: GET_TODOS,
@@ -36,15 +38,16 @@ const TodoState = (props) => {
       });
     }
   };
+
   const createTodo = async (todo) => {
     console.log(todo);
     const config = {
       headers: {
-        'Content-type': 'application/json',
+        "Content-type": "application/json",
       },
     };
     try {
-      const url = 'http://localhost:5000/api/todo';
+      const url = "http://localhost:5000/api/todo";
       const data = await axios.post(url, todo, config);
       dispatch({
         type: CREATE_TODOS,
@@ -60,7 +63,7 @@ const TodoState = (props) => {
   const updateTodo = async (id, todo) => {
     const config = {
       headers: {
-        'Content-type': 'application/json',
+        "Content-type": "application/json",
       },
     };
 
